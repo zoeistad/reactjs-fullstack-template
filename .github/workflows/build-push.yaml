@@ -14,7 +14,7 @@ on:
 env:
   NEXUS_REGISTRY: registry-new.devnerd.store
   IMAGE_NAME: reactjs-image
-  TAG: 
+  TAG: "v0.1.0"
 
 jobs:
   build-and-push:
