@@ -19,7 +19,8 @@ jobs:
 
 
     - name: Use with SHA 
-      run: echo "TAG=${{ GITHUB_SHA::8 }}" >> $GITHUB_ENV
+      run: |
+        echo "TAG=${{ GITHUB_SHA::8 }}" >> $GITHUB_ENV
     - name: showing the new tags value: 
       run: |
         echo "Tag value is : ${{ env.TAG }}"
