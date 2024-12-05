@@ -12,9 +12,9 @@ on:
     branches: [ "main" ]
 
 env:
-  NEXUS_REGISTRY: your-nexus-registry-url:8083
-  NEXUS_REPOSITORY: docker-hosted
-  IMAGE_NAME: react-app
+  NEXUS_REGISTRY: registry-new.devnerd.store
+  IMAGE_NAME: reactjs-image
+  TAG: 
 
 jobs:
   build-and-push:
@@ -31,21 +31,19 @@ jobs:
         echo "This is another value ${{  secrets.PASSWORD }}"
     # - name: Use with SHA 
     #   run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
-    # - name: Login to Nexus Registry
-    #   run: |
-    #     echo "${{ secrets.NEXUS_PASSWORD }}" | docker login ${{ env.NEXUS_REGISTRY }} -u ${{ secrets.NEXUS_USERNAME }} --password-stdin
+    - name: Login to Nexus Registry
+      run: |
+        echo "${{ secrets.PASSWORD }}" | docker login ${{ env.NEXUS_REGISTRY }} -u ${{ secrets.USERNAME }} --password-stdin
 
-    # - name: Build Docker image
-    #   run: docker build -t ${{ env.NEXUS_REGISTRY }}/${{ env.NEXUS_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest .
-    #   # run: |
-    #   #   docker build -t ${{ env.NEXUS_REGISTRY }}/${{ env.NEXUS_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest \
-    #   #               -t ${{ env.NEXUS_REGISTRY }}/${{ env.NEXUS_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_ID }} .
+    - name: Build Docker image
+      run: docker build -t ${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
+ 
 
-    # - name: Push Docker image
-    #   run: |
-    #     docker push ${{ env.NEXUS_REGISTRY }}/${{ env.NEXUS_REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-    #     docker push ${{ env.NEXUS_REGISTRY }}/${{ env.NEXUS_REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.BUILD_ID }}
-    # - name: Logout from Nexus Registry 
-    #   if: always() # this ensure the logout runs even if the previous step fails. 
-    #   run: |
-    #     docker logout ${{ env.NEXUS_REGISTRY }}
+    - name: Push Docker image
+      run: |
+        docker push ${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+    - name: Logout from Nexus Registry 
+      if: always() # this ensure the logout runs even if the previous step fails. 
+      run: |
+        docker logout ${{ env.NEXUS_REGISTRY }}
