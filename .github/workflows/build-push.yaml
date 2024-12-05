@@ -42,7 +42,7 @@ jobs:
       run: |
         docker logout ${{ env.NEXUS_REGISTRY }}
   update-helm-repo: 
-    need: build-and-push
+    needs: build-and-push
     runs-on: ubuntu-latest 
     environment: HELM_REPO 
     steps:  
