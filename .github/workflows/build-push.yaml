@@ -46,6 +46,9 @@ jobs:
     runs-on: ubuntu-latest 
     environment: HELM_REPO 
     steps:  
+      - name: Use with SHA
+        run: |
+          echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
       - name: Showing the tags value 
         run: | 
           echo "This is the value of tag : ${{ env.TAG }}"
