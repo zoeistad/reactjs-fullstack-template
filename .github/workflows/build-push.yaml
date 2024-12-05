@@ -1,34 +1,22 @@
-# naming of the file should be 
-
-
-# Note: thsi is regular docker build without  using the docker builderx for different platform 
-# .github/workflows/docker-build.yaml
-name: React Docker Build and Push
-
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "main" ]
 
 env:
-  NEXUS_REGISTRY: registry-new.devnerd.store
-  IMAGE_NAME: reactjs-image
-  TAG: "v0.1.0"
-
+  NEXUS_REGISTRY: registry-new.devnerd.store # nexus repo for storing docker image 
+  IMAGE_NAME: reactjs-image-nexus
+  TAG: "v0.1.0" # version dynamic 
+  
 jobs:
   build-and-push:
     runs-on: ubuntu-latest 
-    environment: NEXUS_REGISTRY
+    environment: NEXUS_REPOSITORY
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Checking the secret values 
-      run: | 
-        echo "${{ secrets.USERNAME}}"
-        echo "This is another value ${{  secrets.PASSWORD }}"
+
     # - name: Use with SHA 
     #   run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
     - name: Login to Nexus Registry
@@ -36,12 +24,12 @@ jobs:
         echo "${{ secrets.PASSWORD }}" | docker login ${{ env.NEXUS_REGISTRY }} -u ${{ secrets.USERNAME }} --password-stdin
 
     - name: Build Docker image
-      run: docker build -t ${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
+      run: docker build -t ${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} .
  
 
     - name: Push Docker image
       run: |
-        docker push ${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+        docker push ${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
 
     - name: Logout from Nexus Registry 
       if: always() # this ensure the logout runs even if the previous step fails. 
