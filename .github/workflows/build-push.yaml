@@ -5,7 +5,7 @@ on:
 env:
   NEXUS_REGISTRY: registry-new.devnerd.store # nexus repo for storing docker image 
   IMAGE_NAME: reactjs-image-nexus
-  TAG: "v0.1.0" # version dynamic 
+  # TAG: "v0.1.0" # version dynamic 
   HELM_REPO: keoKAY/helm-sample-one.git
   
 jobs:
@@ -46,6 +46,9 @@ jobs:
     runs-on: ubuntu-latest 
     environment: HELM_REPO 
     steps:  
+      - name: Showing the tags value 
+        run: | 
+          echo "This is the value of tag : ${{ env.TAG }}"
       - name: Checkout Helm repository
         run: |
           git clone https://${{ secrets.GIT_TOKEN }}@github.com/${{ env.HELM_REPO }} helm-repo
