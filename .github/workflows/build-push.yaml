@@ -27,7 +27,7 @@ jobs:
     - name: Checking the secret values 
       run: | 
         echo "${{ secrets.NEXUS_REGISTRY.USERNAME}}"
-        echo "This is another value ${{  PASSWORD }}"
+        echo "This is another value ${{  secrets.PASSWORD }}"
     # - name: Use with SHA 
     #   run: echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
     # - name: Login to Nexus Registry
