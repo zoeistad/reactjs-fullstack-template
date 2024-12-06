@@ -11,6 +11,7 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest 
+    # UI , configured secret for this environment 
     environment: NEXUS_REPOSITORY
     
     steps:
@@ -69,11 +70,9 @@ jobs:
           TAG: ${{ env.TAG }}
         run: |
           
-          cd helm-repo
-          # sed -i "s|image:|image:\n  repository: ${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}\n  tag: ${{ env.TAG }}|" nginx-argocd-chart/values.yaml
-          # using yq in order to edit the value of the yaml file 
-          
+          cd helm-repo 
           yq -i ".image.repository=\"${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}\"" nginx-argocd-chart/values.yaml
+          
           yq -i ".image.tag=\"${{ env.TAG }}\"" nginx-argocd-chart/values.yaml
 
           git config --global user.email "keokay888@gmail.com"
