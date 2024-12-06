@@ -72,9 +72,9 @@ jobs:
           cd helm-repo
           # sed -i "s|image:|image:\n  repository: ${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}\n  tag: ${{ env.TAG }}|" nginx-argocd-chart/values.yaml
           # using yq in order to edit the value of the yaml file 
-          yq -i ".image.repository=\"${ NEXUS_REGISTRY }/${ IMAGE_NAME \"" nginx-argocd-chart/values.yaml
-          yq -i ".image.tag=\"${TAG }\"" nginx-argocd-chart/values.yaml
-
+          
+          yq -i ".image.repository=\"${{ env.NEXUS_REGISTRY }}/${{ env.IMAGE_NAME }}\"" nginx-argocd-chart/values.yaml
+          yq -i ".image.tag=\"${{ env.TAG }}\"" nginx-argocd-chart/values.yaml
 
           git config --global user.email "keokay888@gmail.com"
           git config --global user.name "keoKAY"
