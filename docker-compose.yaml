@@ -1,0 +1,6 @@
+services: 
+  reactjs-srv: 
+    image: imagename
+    container_name: reactjs-container 
+    ports: 
+      - "3000:80"

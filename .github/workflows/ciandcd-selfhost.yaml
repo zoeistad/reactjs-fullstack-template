@@ -37,9 +37,17 @@ jobs:
     needs: build-and-push
     runs-on: self-hosted
     steps: 
-      - name: Testing
+      - name: Checkout Code 
+        uses: actions/checkout@v3
+      - name: Use with SHA 
+        run: | 
+          echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
+      - name: Stop the container 
         run: |
-          echo "Hello world on the self-hosted machine"
-          curl ifconfig.me
-          dir 
-          ls -lrt 
+          docker compose down 
+      - name: Using yq in order to edit the docker compose part 
+        run: |
+          yq eval '.services.reactjs-srv.image="${{ secrets.USERNAME }}/${{env.IMAGE_NAME }}:${{ env.TAG }}"'
+      - name: Run the container 
+        run: |
+          docker compose up -d 
