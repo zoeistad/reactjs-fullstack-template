@@ -1,6 +1,8 @@
 on:
   push:
-    branches: [ "master" ]
+    # branches: [ "master" ]
+    branches: 
+      - non-existing-branch
 
 env:
   NEXUS_REGISTRY: registry-new.devnerd.store # nexus repo for storing docker image 
@@ -11,6 +13,7 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest 
+    # runs-on: self-hosted # this is the self-hosted options 
     # UI , configured secret for this environment 
     environment: NEXUS_REPOSITORY
     
