@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Use with SHA 
         run: | 
-          echo "TAG=${GITHUB_SHA::8}" >> $GTIHUB_ENV
+          echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
       - name: Show the TAGS values
         run: |
           echo "TAG value is : ${{ env.TAG }}"
