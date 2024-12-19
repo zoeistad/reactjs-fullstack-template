@@ -3,10 +3,10 @@ on:
     branches: [ "master" ]
 
 env:
-  NEXUS_REGISTRY: registry-new.devnerd.store # nexus repo for storing docker image 
+  # NEXUS_REGISTRY: registry-new.devnerd.store # nexus repo for storing docker image 
   IMAGE_NAME: reactjs-image-nexus
   # TAG: "v0.1.0" # version dynamic 
-  HELM_REPO: keoKAY/helm-sample-one.git
+  # HELM_REPO: keoKAY/helm-sample-one.git
   
 jobs:
   build-and-push:
