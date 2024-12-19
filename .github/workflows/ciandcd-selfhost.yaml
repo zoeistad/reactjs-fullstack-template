@@ -35,7 +35,7 @@ jobs:
           docker logout 
   deploy-service: 
     needs: build-and-push
-    runs-on: self-hosted
+    runs-on: self-hosted # self-hosted is the our machine
     steps: 
       - name: Checkout Code 
         uses: actions/checkout@v3
