@@ -51,7 +51,7 @@ jobs:
             
             echo "remove the container "
             docker stop my-app || true 
-            dcoker rm my-app || true 
+            docker rm my-app || true 
 
             echo "Pulling the updating image "
             docker pull "69966/${{env.IMAGE_NAME }}:${{ env.TAG }}"
