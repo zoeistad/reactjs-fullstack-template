@@ -47,6 +47,7 @@ jobs:
           key: ${{ secrets.GCP_PRIVATE_KEY }}
           envs: TAG
           script: |
+            echo "Current location is $(pwd) "
             echo "Showing down container"
             docker compose down 
             
