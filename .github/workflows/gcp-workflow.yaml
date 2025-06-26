@@ -1,13 +1,9 @@
 on:
   push:
-    branches: [ "non-existing-branch" ]
+    branches: [ "master" ]
 
 env:
-  # NEXUS_REGISTRY: registry-new.devnerd.store # nexus repo for storing docker image 
-  IMAGE_NAME: reactjs-image-nexus
-  # TAG: "v0.1.0" # version dynamic 
-  # HELM_REPO: keoKAY/helm-sample-one.git
-  
+  IMAGE_NAME: reactjs-image-gcp
 jobs:
   build-and-push:
     runs-on: ubuntu-latest 
@@ -35,19 +31,27 @@ jobs:
           docker logout 
   deploy-service: 
     needs: build-and-push
-    runs-on: self-hosted # self-hosted is the our machine
+    runs-on: ubuntu-latest
+    environment: GCP
     steps: 
       - name: Checkout Code 
         uses: actions/checkout@v3
       - name: Use with SHA 
         run: | 
           echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
-      - name: Stop the container 
-        run: |
-          docker compose down 
-      - name: Using yq in order to edit the docker compose part 
-        run: |
-          yq eval '.services.reactjs-srv.image="69966/${{env.IMAGE_NAME }}:${{ env.TAG }}"' -i docker-compose.yaml
-      - name: Run the container 
-        run: |
-          docker compose up -d 
+      - name: Deploy via SSH to GCP VM 
+        uses: appleboy/ssh-action@v1.0.0
+        with: 
+          host: ${{ secrets.GCP_IP }}
+          username: ${{ secrets.GCP_USER }}
+          key: ${{ secrets.GCP_PRIVATE_KEY }}
+          envs: TAG
+          script: |
+            echo "Showing down container"
+            docker compose down 
+            
+            echo "Updating the docker compose file ... "
+            yq eval '.services.reactjs-srv.image="69966/${{env.IMAGE_NAME }}:${{ env.TAG }}"' -i docker-compose.yaml
+
+            echo "Starting updated container "
+            docker compose up -d 

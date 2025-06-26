@@ -78,8 +78,8 @@ jobs:
           
           yq -i ".image.tag=\"${{ env.TAG }}\"" nginx-argocd-chart/values.yaml
 
-          git config --global user.email "keokay888@gmail.com"
-          git config --global user.name "keoKAY"
+          git config --global user.email "your-email"
+          git config --global user.name "git-fullname"
           git add .
           git commit -m "Update image to ${{ env.IMAGE_NAME }}:${{ env.TAG }}"
           git push https://${{ secrets.GIT_TOKEN }}@github.com/${{ env.HELM_REPO }}
