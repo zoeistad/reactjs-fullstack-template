@@ -48,11 +48,18 @@ jobs:
           envs: TAG
           script: |
             echo "Current location is $(pwd) "
-            echo "Showing down container"
-            docker compose down 
             
-            echo "Updating the docker compose file ... "
-            yq eval '.services.reactjs-srv.image="69966/${{env.IMAGE_NAME }}:${{ env.TAG }}"' -i docker-compose.yaml
+            echo "remove the container "
+            docker stop my-app || true 
+            dcoker rm my-app || true 
 
-            echo "Starting updated container "
-            docker compose up -d 
+            echo "Pulling the updating image "
+            docker pull "69966/${{env.IMAGE_NAME }}:${{ env.TAG }}"
+
+            echo "Running new containers "
+            docker run -d \
+              --name my-app \
+              -p 3000:80 \
+              "69966/${{env.IMAGE_NAME }}:${{ env.TAG }}"
+            
+  
