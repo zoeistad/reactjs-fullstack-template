@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "123424" ]
 
 env:
   IMAGE_NAME: reactjs-image-gcp
