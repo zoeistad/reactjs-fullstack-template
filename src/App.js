@@ -24,7 +24,21 @@ function App() {
   const [isValidated, setIsValidated] = useState(
     localStorage.getItem("tokens") ? true : false
   )
-  // const [isLoading, setIsLoading] = useState(true)
+   
+  // unsed variable 
+  const [isLoading, setIsLoading] = useState(true)
+  var message
+  let value="Hello world "
+
+
+  var username="jamesbonbd"
+  var password="password"
+  const testing = ()=>{
+      console.log("testing function")
+  }
+  const testing2 = ()=>{
+    console.log("testing function")
+  }
 
   //validate the token in ensure that users truly valid 
   // useEffect(() => {
