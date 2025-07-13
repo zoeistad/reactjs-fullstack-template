@@ -25,37 +25,7 @@ function App() {
     localStorage.getItem("tokens") ? true : false
   )
    
-  // unsed variable 
-  // const [isLoading, setIsLoading] = useState(true)
-  // var message
-  // let value="Hello world "
-
-
-  // var username="jamesbonbd"
-  // var password="password"
-  // const testing = ()=>{
-  //     console.log("testing function")
-  // }
-  // const testing2 = ()=>{
-  //   console.log("testing function")
-  // }
-
-  //validate the token in ensure that users truly valid 
-  // useEffect(() => {
-  //   if (localStorage.getItem("tokens")) {
-  //     GET_OWN_PROFILE().then((response) => {
-  //       console.log("This is the response of the user profile : ", response)
-  //       setIsValidated(true)
-  //     }).catch((error) => {
-  //       setIsValidated(false)
-  //     }).finally(() => {
-  //       setIsLoading(false)
-  //     }
-  //     )
-
-  //   }
-
-  // }, [])
+  
   const handleLoginCallBack = (value) => {
     setIsValidated(value) // get value from navbar 
   }
