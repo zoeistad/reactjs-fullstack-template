@@ -6,7 +6,7 @@ on:
 # build docker image , push dockerhub
 env: 
   DOCKER_IMAGE_NAME: k8s-reactjs-dev09
-  HELM_REPO: https://github.com/keoKAY/first-helm-argo-repo-dev09
+  HELM_REPO: keoKAY/first-helm-argo-repo-dev09
 jobs: 
   ci-job: 
     runs-on: ubuntu-latest 
@@ -50,7 +50,7 @@ jobs:
       # clone the helm repo remporarily 
       - name: Clone argocd repo 
         run: | 
-          git clone ${{ env.HELM_REPO }} helm_repo 
+          git clone https://github.com/${{ env.HELM_REPO }} helm_repo 
       - name: Update Helm Chart 
         run: |
           cd helm_repo/reactjs-plants-chart
