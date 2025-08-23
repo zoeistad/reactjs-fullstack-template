@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "non-exists" ]
 
 env:
   IMAGE_NAME: reactjs-afternoon-fullstack

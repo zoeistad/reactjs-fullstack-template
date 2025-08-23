@@ -1,0 +1,19 @@
+
+# set condition for when to run the action files 
+on: 
+  push: 
+    branches: ["master"]
+# build docker image , push dockerhub
+jobs: 
+  ci_job: 
+    runs_on: ubuntu-latest 
+    steps: 
+      - name: Checkout code 
+        uses: actions/checkout@v3
+      - name: Using Commit SHA 
+        run: |
+          echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV
+      - name: Show the SHA values 
+        run: |
+          echo "TAG = ${env.TAG }"
+# update helm repo with new image
