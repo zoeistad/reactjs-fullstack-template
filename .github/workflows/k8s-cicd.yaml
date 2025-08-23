@@ -24,7 +24,7 @@ jobs:
           echo "${{ secrets.PASSWORD }}" | docker login -u ${{secrets.USERNAME}} --password-stdin
       - name: Build and Tag 
         run: |
-          docker build -t ${{ secrets.USERNAME }}/${{ env.DOCKER_IMAGE_NAME }} .
+          docker build -t ${{ secrets.USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{env.TAG }} .
       - name: Push to Dockerhub 
         run: |
           docker push ${{ secrets.USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}
