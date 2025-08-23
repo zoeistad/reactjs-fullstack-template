@@ -5,8 +5,8 @@ on:
     branches: ["master"]
 # build docker image , push dockerhub
 jobs: 
-  ci_job: 
-    runs_on: ubuntu-latest 
+  ci-job: 
+    runs-on: ubuntu-latest 
     steps: 
       - name: Checkout code 
         uses: actions/checkout@v3
