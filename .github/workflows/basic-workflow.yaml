@@ -1,6 +1,11 @@
 on:
   push:
-    branches: [ "non-exists" ]
+    # branches: [ "master" ]
+    tags: 
+      - 'v*' # v1.0.0 , v1.0.1
+# git tag v1.0.0
+# git push origin v1.0.0
+
 
 env:
   IMAGE_NAME: reactjs-afternoon-fullstack
