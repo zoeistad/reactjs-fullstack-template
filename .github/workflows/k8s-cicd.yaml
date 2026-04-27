@@ -2,9 +2,9 @@
 # set condition for when to run the action files 
 on: 
   push: 
-    branches: ["master"]
+    branches: ["master123"]
 # build docker image , push dockerhub
-
+ 
 env: 
   DOCKER_IMAGE_NAME: k8s-reactjs-openshift
   HELM_REPO: keoKAY/first-helm-argo-repo-dev09

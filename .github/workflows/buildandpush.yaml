@@ -1,0 +1,31 @@
+
+
+#  condition to run the automation tasks (when )
+on: 
+  push: 
+    branches: ["master"]
+env: 
+  DOCKER_IMAGE: reactjs-fullstack-special
+jobs: 
+  ci-job: 
+    runs-on: ubuntu-latest
+    environment: DEMO_ENV
+    steps: 
+      - name: Checkout Code 
+        uses: actions/checkout@v3
+      - name: Using Commit SHA 
+        run: |
+          echo "TAG=${GITHUB_SHA::8}" >> $GITHUB_ENV  
+      - name: Login to Dockerhub 
+        run: |
+          echo "${{secrets.PASSWORD}}" | docker login -u ${{secrets.USERNAME}} --password-stdin
+      - name: Build Image and Tag 
+        run: |
+          docker build -t ${{secrets.USERNAME}}/${{env.DOCKER_IMAGE}}:${{env.TAG}} .
+      - name: Push to Dockerhub 
+        run: |
+          docker push ${{secrets.USERNAME}}/${{env.DOCKER_IMAGE}}:${{env.TAG}}
+      - name: Logout from Dockerhub 
+        if: always()
+        run: |
+          docker logout 
