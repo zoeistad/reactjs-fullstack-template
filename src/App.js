@@ -25,7 +25,8 @@ function App() {
     localStorage.getItem("tokens") ? true : false
   )
    
-  
+  let username = "admin"; 
+  let password = "password1234"; 
   const handleLoginCallBack = (value) => {
     setIsValidated(value) // get value from navbar 
   }
